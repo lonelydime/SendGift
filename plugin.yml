@@ -1,0 +1,14 @@
+name: SendGift
+main: com.lonelydime.SendGift.SendGift
+version: 1.0
+website: https://github.com/lonelydime
+author: lonelydime
+description: >
+             Allows players to send items from their own inventory.
+
+commands:
+  gift:
+    description: gifts an item stack in your inventory to another player
+    usage: |
+           /<command> [player] [item id] [item number]
+           Example: /<command> lonelydime 264 10 - gives player lonelydime 10 diamonds.
