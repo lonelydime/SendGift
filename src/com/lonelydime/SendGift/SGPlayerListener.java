@@ -45,8 +45,9 @@ public class SGPlayerListener extends PlayerListener {
 					if (event.getPlayer().getInventory().firstEmpty() > 0) {
 						int givetypeid = Integer.parseInt(splittext[1]);
 						int giveamount = Integer.parseInt(splittext[2]);
+						short givedurability = Short.valueOf(splittext[3]);
 						
-						event.getPlayer().getInventory().addItem(new ItemStack(givetypeid, giveamount));
+						event.getPlayer().getInventory().addItem(new ItemStack(givetypeid, giveamount, givedurability));
 						//currentinventory.removeItem(new ItemStack(ID,AMOUNT));
 						String materialname = Material.getMaterial(givetypeid).toString().toLowerCase().replace("_", " ");
 						if (giveamount > 1) 

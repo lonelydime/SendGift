@@ -221,6 +221,8 @@ public class SendGift extends JavaPlugin{
 					
 					//start the transfer
 					else {
+						ItemStack itemstack = player.getInventory().getItem(player.getInventory().first(new ItemStack(givetypeid, giveamount)));
+					    
 						//player is not online, store in offline.txt
 						if (testplayer == null || !testplayer.isOnline()) {
 							
@@ -230,7 +232,7 @@ public class SendGift extends JavaPlugin{
 								
 								BufferedWriter out = new BufferedWriter(new FileWriter(offlineFile, true));
 								
-								String textToWrite = playername+":"+givetypeid+":"+giveamount+":"+player.getName();
+								String textToWrite = playername+":"+givetypeid+":"+giveamount+":"+player.getName()+":"+itemstack.getDurability();
 								
 								out.write(textToWrite);
 								out.newLine();
@@ -247,7 +249,8 @@ public class SendGift extends JavaPlugin{
 										materialname = materialname+"s";
 								}
 							    
-							    player.getInventory().removeItem(new ItemStack(givetypeid, giveamount));
+							    
+							    player.getInventory().removeItem(itemstack);
 							    
 							    player.sendMessage(ChatColor.GRAY+"You gave "+ChatColor.GREEN+playername+" "+ChatColor.GRAY+itemamount+" "+ ChatColor.RED+materialname);
 							    player.sendMessage(ChatColor.GRAY+"They will receive it when they log in.");
@@ -261,11 +264,11 @@ public class SendGift extends JavaPlugin{
 						//both online, do in real time
 						else {
 							//make sure that the receiving player's inventory isn't full
-							if (testplayer.getInventory().firstEmpty() > 0) {
+							if (testplayer.getInventory().firstEmpty() >= 0) {
 							
 								 //remove the item
-								player.getInventory().removeItem(new ItemStack(givetypeid, giveamount));
-								testplayer.getInventory().addItem(new ItemStack(givetypeid, giveamount));
+								player.getInventory().removeItem(itemstack);
+								testplayer.getInventory().addItem(itemstack);
 								//currentinventory.removeItem(new ItemStack(ID,AMOUNT));
 								materialname = Material.getMaterial(givetypeid).toString().toLowerCase().replace("_", " ");
 								if (giveamount > 1) {
